@@ -8,32 +8,42 @@ public class TilemapMovement : MonoBehaviour {
     public Vector3 moveX;
     public Vector3 moveY;
     GameManager gm;
+    public float countToMove;
+    private float countToMoveStart;
 
     void Start() {
         gm = FindObjectOfType<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player");
+        countToMoveStart = countToMove;
     }
 
   
 
     void Update() {
+        countToMove -= Time.deltaTime;
         bool moved = false;
-        if (Input.GetKeyDown("d")) {
+
+            if (Input.GetKey("d") && countToMove <= 0) {
             moved = true;
+            countToMove = countToMoveStart;
             player.transform.position += moveX;
-        }
-        if (Input.GetKeyDown("a")) {
-            moved = true;
+
+            }
+            if (Input.GetKey("a") && countToMove <= 0) {
+                moved = true;
+            countToMove = countToMoveStart;
             player.transform.position -= moveX;
-        }
-        if (Input.GetKeyDown("w")) {
-            moved = true;
+            }
+            if (Input.GetKey("w") && countToMove <= 0) {
+                moved = true;
+            countToMove = countToMoveStart;
             player.transform.position += moveY;
-        }
-        if (Input.GetKeyDown("s")) {
-            moved = true;
+            }
+            if (Input.GetKey("s") && countToMove <= 0) {
+                moved = true;
+            countToMove = countToMoveStart;
             player.transform.position -= moveY;
-        }
+            }
         if (moved) {
             // kill
             foreach (Transform child in gm.slimesFolder) {
@@ -42,6 +52,5 @@ public class TilemapMovement : MonoBehaviour {
                 //for (int i=0; i<)
             gm.FloodFill(gm.megaSlime);
         }
-
     }
 }
