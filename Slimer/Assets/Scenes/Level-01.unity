@@ -261,23 +261,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1050636355748948, guid: a1b2875b00e3a0647aee0c5010a60102, type: 2}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1788761258459620, guid: a1b2875b00e3a0647aee0c5010a60102, type: 2}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1369484570815012, guid: a1b2875b00e3a0647aee0c5010a60102, type: 2}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1303041411393728, guid: a1b2875b00e3a0647aee0c5010a60102, type: 2}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1320485041374532, guid: a1b2875b00e3a0647aee0c5010a60102, type: 2}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 61814531749057366, guid: a1b2875b00e3a0647aee0c5010a60102,
         type: 2}
@@ -428,7 +428,7 @@ Prefab:
     - target: {fileID: 114757405346784580, guid: d835681687f618c4887128f876a3d6d3,
         type: 2}
       propertyPath: wallLayer.m_Bits
-      value: 256
+      value: 512
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 61007610637570700, guid: d835681687f618c4887128f876a3d6d3, type: 2}
