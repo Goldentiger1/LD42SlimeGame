@@ -10,9 +10,15 @@ public class PauseMenu : MonoBehaviour {
     public GameObject pauseMenuUI;
 
     public Scene mainMenu;
+    public Canvas pausecanvas;
 
-	// Update is called once per frame
-	void Update () {
+    private void Start()
+    {
+        pausecanvas = GetComponent<Canvas>();
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             if (GameIsPaused) {
                 Resume();
@@ -26,12 +32,14 @@ public class PauseMenu : MonoBehaviour {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
+        pausecanvas.enabled = false;
     }
 
     void Pause() {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
+        pausecanvas.enabled = true;
     }
 
     public void LoadMenu(string menu) {
