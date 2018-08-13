@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehavor : MonoBehaviour {
 
@@ -23,8 +24,8 @@ public class PlayerBehavor : MonoBehaviour {
             gm.megaSlime += 5;
             foodsEaten++;
             FoodEaten.text = "Food eaten: " + foodsEaten;
-            Destroy(collision.gameObject);
-
+            //Destroy(collision.gameObject);
+            gm.Despawn(gm.PooledFood, collision.gameObject);
         }
 
         if (collision.tag == "enemy") {
@@ -38,6 +39,7 @@ public class PlayerBehavor : MonoBehaviour {
 
         if (collision.tag == "goal") {
             print("pääsit maaliin");
+            SceneManager.LoadScene(0);
         }
     }
 

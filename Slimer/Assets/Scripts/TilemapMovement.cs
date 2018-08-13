@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TilemapMovement : MonoBehaviour {
 
@@ -12,7 +10,6 @@ public class TilemapMovement : MonoBehaviour {
     private float countToMoveStart;
     public LayerMask wallLayer;
     Vector3 move;
-
 
     void Start() {
         gm = FindObjectOfType<GameManager>();
@@ -54,8 +51,7 @@ public class TilemapMovement : MonoBehaviour {
             // kill
             foreach (Transform child in gm.slimesFolder) {
 
-                //Destroy(child.gameObject);
-                gm.Despawn(child.gameObject);
+                gm.Despawn(gm.PooledSlimes ,child.gameObject);
             }
             gm.FloodFill(gm.megaSlime, gm.CenterCalc());
         }
