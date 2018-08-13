@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-
+    public string gameAudio;
+    public string stopAudio;
     public Vector3[] testi;
     public GameObject player;
     public GameObject playerSlime;
@@ -89,15 +90,16 @@ public class GameManager : MonoBehaviour {
         //}
         lastPos = player.transform.position;
         FloodFill(megaSlime, CenterCalc());
-        
-	}
+        Fabric.EventManager.Instance.PostEvent(gameAudio);
+
+    }
 	
 
 
 	void Update () {
         //liikuttaa dummyslimeja playerin mukana kun se liikkuu
         //käy läpi naapurit ja pistää uuteen listaan
-
+        
         }
 	
 }
