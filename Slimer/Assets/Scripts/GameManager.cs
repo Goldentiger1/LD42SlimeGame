@@ -4,16 +4,63 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+
+    public Vector3[] testi;
     public GameObject player;
     public GameObject playerSlime;
     List<Vector3> fourNeighbors = new List<Vector3>() { Vector3.up, Vector3.right, Vector3.down, Vector3.left };
+    //List<Transform> slimes = new List<Transform>();
     public Transform slimesFolder;
     public int megaSlime;
+    Stack<GameObject> pooledSlimes = new Stack<GameObject>();
+    public Vector3 lastPos;
 
-    public void FloodFill(int n) {
-        var fringe = new Queue<Vector3>();
+    public void LastDir(Vector3 c) {
+        if (fourNeighbors.Contains(c)) {
+            fourNeighbors.Remove(c);
+            fourNeighbors.Add(c);
+            testi = fourNeighbors.ToArray();
+        }
+        else {
+            Debug.LogError("!!");
+        }
+    }
+
+    public GameObject Spawn(Vector3 pos = new Vector3()) {
+
+        if (pooledSlimes.Count > 0) {
+            GameObject go = pooledSlimes.Pop();
+            go.transform.position = pos;
+            return go;
+        }
+
+        return Instantiate(playerSlime, pos, Quaternion.identity);
+    }
+
+    public void Despawn(GameObject go) {
+        go.SetActive(false);
+        pooledSlimes.Push(go);
+    }
+
+    public Vector3 CenterCalc() {
+        if (/*slimes*/pooledSlimes.Count <= 0) {
+            return player.transform.position;
+        }
+
+        Vector3 foo = Vector3.zero;
+
+        //laskee slimejen keskiarvopisteen
+        foreach (var item in /*slimes*/pooledSlimes) {
+            foo += item.transform.position;
+        }
+        foo /= /*slimes*/pooledSlimes.Count;
+        return Vector3Int.RoundToInt((foo + player.transform.position + lastPos)* 1/3f);
+    }
+
+    public void FloodFill(int n, Vector3 center) {
+        var fringe = new Queue<Vector3>(); 
         foreach (var delta in fourNeighbors) {
-            fringe.Enqueue(player.transform.position + delta);
+            fringe.Enqueue(center + delta);
 
         }
 
@@ -22,9 +69,11 @@ public class GameManager : MonoBehaviour {
             // tsekataan onko tyhjää
             var collider = Physics2D.OverlapPoint(pos); //TODO: lisää layermask kun koodi muuten ok
             bool isFree = !collider;
-            if (!isFree) continue; //hyppää whilen alkuun toisin kuin return
+           if (!isFree) continue; //hyppää whilen alkuun toisin kuin return
             //instantioidaan slime
-            var go = Instantiate(playerSlime, pos, Quaternion.identity);
+            var go = Spawn(pos)/*Instantiate(playerSlime, pos, Quaternion.identity)*/;
+            go.SetActive(true);
+            // slimes.Add(go.transform);
             go.transform.parent = slimesFolder;
             n--;
             foreach (var delta in fourNeighbors) 
@@ -38,7 +87,9 @@ public class GameManager : MonoBehaviour {
         //    GameObject go = Instantiate(playerSlime, player.transform.position + delta, Quaternion.identity);
         //    go.transform.parent = slimesFolder;
         //}
-        FloodFill(megaSlime);
+        lastPos = player.transform.position;
+        FloodFill(megaSlime, CenterCalc());
+        
 	}
 	
 

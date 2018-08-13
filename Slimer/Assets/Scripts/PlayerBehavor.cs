@@ -35,6 +35,10 @@ public class PlayerBehavor : MonoBehaviour {
                 statusText.text = "Gameover, better luck next time!";
             }
         }
+
+        if (collision.tag == "goal") {
+            print("pääsit maaliin");
+        }
     }
 
     void Update () {
