@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-    public Vector3[] TestArray;
+
+
+    public Vector3[] testi;
     public GameObject player;
     public GameObject playerSlime;
     List<Vector3> fourNeighbors = new List<Vector3>() { Vector3.up, Vector3.right, Vector3.down, Vector3.left };
@@ -17,7 +19,7 @@ public class GameManager : MonoBehaviour {
         if (fourNeighbors.Contains(c)) {
             fourNeighbors.Remove(c);
             fourNeighbors.Add(c);
-            TestArray = fourNeighbors.ToArray();
+            testi = fourNeighbors.ToArray();
         }
         else {
             Debug.LogError("!!");
@@ -25,7 +27,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public GameObject Spawn(Vector3 pos = new Vector3()) {
-        Debug.LogError("Spawn");
+
         if (pooledSlimes.Count > 0) {
             GameObject go = pooledSlimes.Pop();
             go.transform.position = pos;
@@ -36,7 +38,6 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Despawn(GameObject go) {
-        Debug.LogError("Despawn");
         go.SetActive(false);
         pooledSlimes.Push(go);
     }
@@ -53,8 +54,6 @@ public class GameManager : MonoBehaviour {
             foo += item.transform.position;
         }
         foo /= /*slimes*/pooledSlimes.Count;
-        Vector3 c = Vector3Int.RoundToInt((foo + player.transform.position + lastPos) * 1 / 3f);
-        Debug.Log(c);
         return Vector3Int.RoundToInt((foo + player.transform.position + lastPos)* 1/3f);
     }
 

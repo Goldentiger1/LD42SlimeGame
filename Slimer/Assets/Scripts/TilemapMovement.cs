@@ -11,7 +11,7 @@ public class TilemapMovement : MonoBehaviour {
     public float countToMove;
     private float countToMoveStart;
     public LayerMask wallLayer;
-    Vector3 move = Vector3.zero;
+    Vector3 move;
 
 
     void Start() {
