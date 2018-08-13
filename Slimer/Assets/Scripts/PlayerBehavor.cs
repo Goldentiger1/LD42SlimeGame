@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class PlayerBehavor : MonoBehaviour {
@@ -10,11 +11,13 @@ public class PlayerBehavor : MonoBehaviour {
     float foodsEaten;
     public TextMeshProUGUI FoodEaten;
     public TextMeshProUGUI statusText;
+    public GameObject retryButton;
 
 
     void Start () {
         gm = GameObject.FindObjectOfType<GameManager>();
         food = GameObject.FindGameObjectsWithTag("food");
+        retryButton.SetActive(false);
 	}
 
     public void OnTriggerEnter2D(Collider2D collision) {
@@ -33,6 +36,7 @@ public class PlayerBehavor : MonoBehaviour {
             if (gm.megaSlime < 0) {
                 gameObject.SetActive(false);
                 statusText.text = "Gameover, better luck next time!";
+                retryButton.SetActive(true);
             }
         }
 
@@ -41,7 +45,11 @@ public class PlayerBehavor : MonoBehaviour {
         }
     }
 
+    public void Retry(string level) {
+        SceneManager.LoadScene(level);
+    }
+
     void Update () {
-	
+
 	}
 }
