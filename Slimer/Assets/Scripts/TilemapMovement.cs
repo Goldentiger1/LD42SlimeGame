@@ -11,6 +11,7 @@ public class TilemapMovement : MonoBehaviour {
     public float countToMove;
     private float countToMoveStart;
     public LayerMask wallLayer;
+    Vector3 move = Vector3.zero;
 
 
     void Start() {
@@ -22,46 +23,41 @@ public class TilemapMovement : MonoBehaviour {
     void Update() {
         countToMove -= Time.deltaTime;
         bool moved = false;
-
         if (Input.GetKey("d") && countToMove <= 0) {
             moved = true;
-            countToMove = countToMoveStart;
-            if (!Physics2D.OverlapPoint(player.transform.position + moveX, wallLayer)) {
-                player.transform.position += moveX;
-            }
+            move = moveX;
         }
 
         if (Input.GetKey("a") && countToMove <= 0) {
             moved = true;
-            countToMove = countToMoveStart;
-            if (!Physics2D.OverlapPoint(player.transform.position - moveX, wallLayer)) {
-                player.transform.position -= moveX;
-            }
+            move = -moveX;
         }
 
         if (Input.GetKey("w") && countToMove <= 0) {
             moved = true;
             countToMove = countToMoveStart;
-            if (!Physics2D.OverlapPoint(player.transform.position + moveY, wallLayer)) {
-                player.transform.position += moveY;
-            }
+            move = moveY;
         }
 
         if (Input.GetKey("s") && countToMove <= 0) {
             moved = true;
-            countToMove = countToMoveStart;
-            if (!Physics2D.OverlapPoint(player.transform.position - moveY, wallLayer)) {
-                player.transform.position -= moveY;
-            }
+            move = -moveY;
         }
 
         if (moved) {
+            gm.LastDir(move);
+            countToMove = countToMoveStart;
+            gm.lastPos = player.transform.position;
+            if (!Physics2D.OverlapPoint(player.transform.position + move, wallLayer)) {
+                player.transform.position += move;
+            }
             // kill
             foreach (Transform child in gm.slimesFolder) {
-                Destroy(child.gameObject);
+
+                //Destroy(child.gameObject);
+                gm.Despawn(child.gameObject);
             }
-            //for (int i=0; i<)
-            gm.FloodFill(gm.megaSlime);
+            gm.FloodFill(gm.megaSlime, gm.CenterCalc());
         }
     }
 }

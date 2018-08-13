@@ -51,8 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db088c4e1ac7f54b990a68744f98f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TestArray: []
   player: {fileID: 0}
   playerSlime: {fileID: 1192825633642290, guid: 83b0f0a2a26e8be4d8b2674e6fc035b4,
     type: 2}
   slimesFolder: {fileID: 0}
-  megaSlime: 50
+  megaSlime: 10
+  lastPos: {x: 0, y: 0, z: 0}
